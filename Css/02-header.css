@@ -1,0 +1,29 @@
+header {
+    width: 100%;
+    backdrop-filter: blur(12px);
+    background: rgba(20,20,20,0.6);
+    padding: 18px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    transition: 0.25s;
+}
+
+nav a:hover {
+    color: #00aaff;
+    transform: translateY(-2px);
+}

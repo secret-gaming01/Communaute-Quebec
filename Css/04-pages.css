@@ -1,0 +1,105 @@
+/* ============================
+   HERO
+   ============================ */
+.hero {
+    text-align: center;
+    padding: 120px 0 80px;
+    background: radial-gradient(circle at top, rgba(0,170,255,0.15), transparent 60%);
+}
+
+/* LOGO ADAPTÉ */
+.hero-logo {
+    width: 140px; /* taille parfaite */
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(0,170,255,0.45));
+}
+
+/* TITRE */
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 0 20px rgba(0,170,255,0.4);
+}
+
+.hero p {
+    font-size: 20px;
+    color: #ccc;
+    margin-bottom: 35px;
+}
+
+/* ============================
+   BOUTONS
+   ============================ */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hero-buttons button {
+    background: linear-gradient(135deg, #00aaff, #7b2cff);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 0 12px rgba(0,170,255,0.4);
+}
+
+.hero-buttons button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(0,170,255,0.6);
+}
+
+/* ============================
+   TITRES DE SECTIONS
+   ============================ */
+section h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 12px rgba(123,44,255,0.4);
+}
+
+/* ============================
+   GRID
+   ============================ */
+.grid {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* ============================
+   CARDS
+   ============================ */
+.card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    transition: 0.3s ease;
+    color: white;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: #00aaff;
+    box-shadow: 0 0 14px rgba(0,170,255,0.4);
+}
+.hero-logo {
+    width: 140px;
+    height: 140px; /* même taille pour un cercle parfait */
+    object-fit: cover; /* évite la déformation */
+    border-radius: 50%; /* rend le logo rond */
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(0,170,255,0.45));
+}

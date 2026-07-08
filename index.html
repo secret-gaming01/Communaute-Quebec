@@ -1,61 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Communauté Québec</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communauté Québec</title>
+
+    <style>
+        body {
+            background: #0d0d0d;
+            margin: 0;
+            padding: 0;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        .fade {
+            opacity: 0;
+        }
+    </style>
+
+    <script>
+        window.onload = () => {
+            document.body.classList.add("fade");
+            setTimeout(() => {
+                window.location.href = "Pages/01-accueil.html";
+            }, 300);
+        };
+    </script>
 </head>
-<body>
-
-<header class="header">
-  <h1>Communauté Québec</h1>
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="staff.html">Staff</a>
-    <a href="activites.html">Activités</a>
-    <a href="reseaux.html">Réseaux Sociaux</a>
-  </nav>
-</header>
-
-<section class="hero">
- <p class="highlight-text">
-  Un serveur communautaire inspiré du Québec et de son ambiance chaleureuse !
-  Ici, on se rassemble pour discuter, rencontrer du monde, s’amuser et bâtir
-  une vraie communauté active et respectueuse.
-</p>
-
-</section>
-
-<section class="block">
-  <h3>Ce qu’on vous offre</h3>
-  <ul>
-    <li>💬 Discussions actives</li>
-    <li>🎉 Événements amusants</li>
-    <li>🤝 Communauté accueillante</li>
-    <li>🌟 Serveur organisé & propre</li>
-    <li>🔥 Ambiance québécoise unique</li>
-  </ul>
-</section>
-
-<section class="block">
-  <h3>Ce qu’il nous manque</h3>
-  <ul>
-    <li>💯 Membres actifs</li>
-    <li>⭐ Personnes investies</li>
-    <li>🔋 Une plus grande communauté</li>
-  </ul>
-</section>
-
-<section class="cta">
-  <a class="btn" href="https://discord.gg/ufQhTFjFtm" target="_blank">
-    🎮 Rejoindre Communauté Québec
-  </a>
-</section>
-
-<footer class="footer"></footer>
-
-<script src="script.js"></script>
-</body>
+<body></body>
 </html>
-
-

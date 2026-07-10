@@ -1,28 +1,131 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Avis</title>
+  <meta charset="UTF-8">
+  <title>Avis – Communauté Québec</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../Css/01-global.css">
+  <!-- Lien vers ton CSS -->
+<link rel="stylesheet" href="avis.css">
+  <link rel="stylesheet" href="../Css/01-global.css">
     <link rel="stylesheet" href="../Css/02-header.css">
     <link rel="stylesheet" href="../Css/03-footer.css">
+    <link rel="stylesheet" href="../Css/04-pages.css">
+    <link rel="stylesheet" href="../Css/05-responsive.css">
 
-    <script src="../js/01-header.js" defer></script>
-    <script src="../js/02-footer.js" defer></script>
-    <script src="../js/04-avis.js" defer></script>
+    <script src="../Js/01-header.js" defer></script>
+    <script src="../Js/02-footer.js" defer></script>
+</head>
 </head>
 <body>
 
-<section>
-    <h1>Avis</h1>
+  <div class="avis-container">
+    <h2>Donnez votre avis</h2>
+    <p class="intro">
+      Partagez votre expérience avec la communauté. Les avis sont publics et visibles par tous.
+    </p>
 
-    <input id="note" type="number" min="1" max="5" placeholder="Note (1 à 5)">
-    <textarea id="commentaire" placeholder="Ton avis..."></textarea>
-    <button id="envoyerAvis">Envoyer</button>
+    <form id="avisForm">
+      <input type="text" id="pseudo" placeholder="Votre pseudo" required>
+      <textarea id="message" placeholder="Votre message" required></textarea>
+      <button type="submit">Envoyer mon avis</button>
+    </form>
 
-    <div id="avisContainer"></div>
-</section>
+    <h3>Avis de la communauté</h3>
+    <div id="avisList"></div>
+    <div id="avisEmpty" class="avis-empty" style="display:none;">
+      Aucun avis pour le moment. Soyez le premier à donner le vôtre.
+    </div>
+  </div>
+
+  <!-- Firebase + Avis.js -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      serverTimestamp,
+      onSnapshot,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDL9o_fzrjW78b9bBuhwDJEQFvaJV32Zmc",
+  authDomain: "avis-communaute-quebec.firebaseapp.com",
+  projectId: "avis-communaute-quebec",
+  storageBucket: "avis-communaute-quebec.firebasestorage.app",
+  messagingSenderId: "41655611730",
+  appId: "1:41655611730:web:b37078e954c53fe7646e4b",
+  measurementId: "G-N1FG0PR271"
+};
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getFirestore(app);
+
+    signInAnonymously(auth).catch((error) => {
+      console.error("Erreur Auth anonyme:", error);
+    });
+
+    const avisForm = document.getElementById("avisForm");
+    const avisList = document.getElementById("avisList");
+    const avisEmpty = document.getElementById("avisEmpty");
+
+    avisForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const pseudo = document.getElementById("pseudo").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!pseudo || !message) return;
+
+      try {
+        await addDoc(collection(db, "avis"), {
+          pseudo,
+          message,
+          date: serverTimestamp()
+        });
+
+        avisForm.reset();
+      } catch (err) {
+        console.error("Erreur Firestore (ajout avis):", err);
+      }
+    });
+
+    const q = query(collection(db, "avis"), orderBy("date", "desc"));
+
+    onSnapshot(q, (snapshot) => {
+      avisList.innerHTML = "";
+
+      if (snapshot.empty) {
+        avisEmpty.style.display = "block";
+        return;
+      } else {
+        avisEmpty.style.display = "none";
+      }
+
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+
+        const div = document.createElement("div");
+        div.classList.add("avis-item");
+
+        const dateStr = data.date
+          ? data.date.toDate().toLocaleString("fr-CA")
+          : "Date inconnue";
+
+        div.innerHTML = `
+          <p><strong>${data.pseudo}</strong></p>
+          <p>${data.message}</p>
+          <span>${dateStr}</span>
+        `;
+
+        avisList.appendChild(div);
+      });
+    });
+  </script>
 
 </body>
 </html>
